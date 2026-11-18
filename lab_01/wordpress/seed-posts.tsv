@@ -1,0 +1,7 @@
+title	category	content
+Lab 01: Architecture overview	Lab 01	This site runs on two EC2 web servers behind an Application Load Balancer. Both servers share one MySQL database on Amazon RDS and one wp-content directory on Amazon EFS.
+Amazon RDS: the shared database	Lab 01	Every post, page, user and setting is stored in the RDS MySQL instance. If this post is visible from both web servers, they are reading the same database.
+Amazon EFS: shared uploads	Lab 01	Media uploads, themes and plugins live in wp-content, which is mounted from EFS on both web servers, so a file uploaded through one server is served by the other.
+Elastic Load Balancing	Lab 01	The load balancer spreads requests across two Availability Zones and only sends traffic to servers that pass the health check.
+Security groups	Lab 01	Internet to ALB on port 80, ALB to web servers on port 80, web servers to EFS on port 2049 and to RDS on port 3306. Nothing else is open.
+Seed data check	Testing	Created by make seed through the WordPress XML-RPC API. Run make db-check to read it back from each web server.
